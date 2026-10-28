@@ -15,7 +15,7 @@ Trabalho da 2ª avaliação parcial de Computação Gráfica (Jogo 3D).
 
 - **Jogar online:** `https://danrockdave.github.io/Sitio-do-sol/`
 - **Vídeo de demonstração:** _(Ainda vou criar)_
-- **Slides da apresentação:** _(Ainda vou criar)_
+- **Slides da apresentação:** _(https://docs.google.com/presentation/d/18dv4SRbfkmuPzgNmXxR6dT9H4ioQd00oji-wROKAi7w/edit?usp=sharing)_
 
 ## Como jogar
 
