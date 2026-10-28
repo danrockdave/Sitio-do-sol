@@ -176,4 +176,4 @@ Necessário apenas se você alterar os scripts (requer Python 3, NumPy, Pillow e
 python3 tools/generate_models.py     # assets/models/*.obj + .mtl
 python3 tools/generate_textures.py   # assets/textures/*.ppm
 python3 tools/generate_font.py       # assets/fonts/poppins_sdf.*
-```
+```# Sitio-do-sol
