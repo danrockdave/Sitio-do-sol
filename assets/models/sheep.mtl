@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for sheep
+newmtl wool
+Ka 0.980 0.970 0.940
+Kd 0.980 0.970 0.940
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2
+
+newmtl sheep_face
+Ka 0.250 0.220 0.210
+Kd 0.250 0.220 0.210
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2

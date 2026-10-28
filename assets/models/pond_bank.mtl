@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for pond_bank
+newmtl soil_mound
+Ka 0.420 0.280 0.180
+Kd 0.420 0.280 0.180
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2

@@ -1,0 +1,9 @@
+# Sítio do Sol - materials for rock_b
+newmtl rock
+Ka 0.600 0.600 0.620
+Kd 0.600 0.600 0.620
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+map_Kd ../textures/stone.ppm

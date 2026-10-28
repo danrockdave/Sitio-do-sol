@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for corn_item
+newmtl corn
+Ka 0.990 0.840 0.250
+Kd 0.990 0.840 0.250
+Ks 0.200 0.200 0.200
+Ns 24.0
+d 1.0
+illum 2
+
+newmtl husk
+Ka 0.700 0.800 0.380
+Kd 0.700 0.800 0.380
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

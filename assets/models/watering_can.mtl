@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for watering_can
+newmtl can_green
+Ka 0.350 0.650 0.550
+Kd 0.350 0.650 0.550
+Ks 0.600 0.600 0.600
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl metal_light
+Ka 0.700 0.720 0.760
+Kd 0.700 0.720 0.760
+Ks 0.900 0.900 0.900
+Ns 90.0
+d 1.0
+illum 2

@@ -1,0 +1,80 @@
+# Sítio do Sol - materials for farmer
+newmtl overalls
+Ka 0.270 0.450 0.780
+Kd 0.270 0.450 0.780
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl boots
+Ka 0.380 0.240 0.140
+Kd 0.380 0.240 0.140
+Ks 0.150 0.150 0.150
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl shirt
+Ka 0.860 0.300 0.260
+Kd 0.860 0.300 0.260
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl gold
+Ka 0.990 0.800 0.220
+Kd 0.990 0.800 0.220
+Ks 0.950 0.950 0.950
+Ns 100.0
+d 1.0
+illum 2
+
+newmtl skin
+Ka 0.980 0.780 0.620
+Kd 0.980 0.780 0.620
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl hair
+Ka 0.360 0.220 0.130
+Kd 0.360 0.220 0.130
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl pink
+Ka 0.960 0.630 0.640
+Kd 0.960 0.630 0.640
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl straw
+Ka 0.950 0.800 0.420
+Kd 0.950 0.800 0.420
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl hat_band
+Ka 0.800 0.240 0.220
+Kd 0.800 0.240 0.220
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

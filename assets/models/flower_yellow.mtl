@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for flower_yellow
+newmtl stalk
+Ka 0.520 0.700 0.280
+Kd 0.520 0.700 0.280
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl petal_yellow
+Ka 0.990 0.860 0.250
+Kd 0.990 0.860 0.250
+Ks 0.150 0.150 0.150
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl flower_core
+Ka 0.990 0.800 0.200
+Kd 0.990 0.800 0.200
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl leaf
+Ka 0.420 0.720 0.260
+Kd 0.420 0.720 0.260
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2

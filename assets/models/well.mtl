@@ -1,0 +1,44 @@
+# Sítio do Sol - materials for well
+newmtl stone
+Ka 0.800 0.780 0.740
+Kd 0.800 0.780 0.740
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2
+map_Kd ../textures/stone.ppm
+
+newmtl water
+Ka 0.250 0.500 0.700
+Kd 0.250 0.500 0.700
+Ks 1.000 1.000 1.000
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl roof_brown
+Ka 0.620 0.420 0.300
+Kd 0.620 0.420 0.300
+Ks 0.100 0.100 0.100
+Ns 14.0
+d 1.0
+illum 2
+map_Kd ../textures/roof.ppm
+
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm

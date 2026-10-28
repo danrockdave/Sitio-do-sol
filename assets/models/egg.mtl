@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for egg
+newmtl egg
+Ka 0.990 0.930 0.820
+Kd 0.990 0.930 0.820
+Ks 0.400 0.400 0.400
+Ns 40.0
+d 1.0
+illum 2

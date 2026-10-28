@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for grass_tuft
+newmtl grass_blade
+Ka 0.450 0.700 0.250
+Kd 0.450 0.700 0.250
+Ks 0.020 0.020 0.020
+Ns 6.0
+d 1.0
+illum 2
+
+newmtl grass_tall
+Ka 0.550 0.740 0.300
+Kd 0.550 0.740 0.300
+Ks 0.020 0.020 0.020
+Ns 6.0
+d 1.0
+illum 2

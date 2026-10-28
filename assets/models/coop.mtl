@@ -1,0 +1,62 @@
+# Sítio do Sol - materials for coop
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl wall_white
+Ka 0.970 0.950 0.900
+Kd 0.970 0.950 0.900
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl roof_red
+Ka 0.820 0.280 0.220
+Kd 0.820 0.280 0.220
+Ks 0.100 0.100 0.100
+Ns 14.0
+d 1.0
+illum 2
+map_Kd ../textures/roof.ppm
+
+newmtl door
+Ka 0.600 0.400 0.250
+Kd 0.600 0.400 0.250
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl trim_white
+Ka 0.980 0.970 0.950
+Kd 0.980 0.970 0.950
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl window_glow
+Ka 0.450 0.620 0.780
+Kd 0.450 0.620 0.780
+Ks 0.900 0.900 0.900
+Ns 120.0
+Ke 1.000 0.780 0.400
+d 1.0
+illum 2

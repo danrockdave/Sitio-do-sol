@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for apple_item
+newmtl apple
+Ka 0.880 0.140 0.140
+Kd 0.880 0.140 0.140
+Ks 0.700 0.700 0.700
+Ns 70.0
+d 1.0
+illum 2
+
+newmtl stem
+Ka 0.400 0.270 0.150
+Kd 0.400 0.270 0.150
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl leaf
+Ka 0.420 0.720 0.260
+Kd 0.420 0.720 0.260
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2

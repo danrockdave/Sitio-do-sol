@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for pumpkin_item
+newmtl pumpkin
+Ka 0.980 0.550 0.120
+Kd 0.980 0.550 0.120
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2
+
+newmtl stem
+Ka 0.400 0.270 0.150
+Kd 0.400 0.270 0.150
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl leaf
+Ka 0.420 0.720 0.260
+Kd 0.420 0.720 0.260
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2

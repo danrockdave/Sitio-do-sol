@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for chicken
+newmtl white_fur
+Ka 0.970 0.960 0.930
+Kd 0.970 0.960 0.930
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl comb
+Ka 0.900 0.160 0.140
+Kd 0.900 0.160 0.140
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl beak
+Ka 0.990 0.700 0.180
+Kd 0.990 0.700 0.180
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2

@@ -1,0 +1,9 @@
+# Sítio do Sol - materials for soil_tile
+newmtl soil_tile
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2
+map_Kd ../textures/soil.ppm

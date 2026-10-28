@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for tomato_item
+newmtl tomato
+Ka 0.900 0.160 0.120
+Kd 0.900 0.160 0.120
+Ks 0.550 0.550 0.550
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl leaf_dark
+Ka 0.250 0.550 0.200
+Kd 0.250 0.550 0.200
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl stem
+Ka 0.400 0.270 0.150
+Kd 0.400 0.270 0.150
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

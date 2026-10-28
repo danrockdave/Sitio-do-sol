@@ -1,0 +1,17 @@
+# Sítio do Sol - materials for hoe
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl blade_metal
+Ka 0.620 0.640 0.680
+Kd 0.620 0.640 0.680
+Ks 0.900 0.900 0.900
+Ns 90.0
+d 1.0
+illum 2

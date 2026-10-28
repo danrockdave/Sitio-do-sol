@@ -1,0 +1,17 @@
+# Sítio do Sol - materials for seed_bag
+newmtl sack
+Ka 0.880 0.760 0.560
+Kd 0.880 0.760 0.560
+Ks 0.020 0.020 0.020
+Ns 6.0
+d 1.0
+illum 2
+
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm

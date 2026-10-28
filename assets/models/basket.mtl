@@ -1,0 +1,42 @@
+# Sítio do Sol - materials for basket
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl apple
+Ka 0.880 0.140 0.140
+Kd 0.880 0.140 0.140
+Ks 0.700 0.700 0.700
+Ns 70.0
+d 1.0
+illum 2
+
+newmtl orange
+Ka 0.990 0.560 0.100
+Kd 0.990 0.560 0.100
+Ks 0.450 0.450 0.450
+Ns 50.0
+d 1.0
+illum 2
+
+newmtl egg
+Ka 0.990 0.930 0.820
+Kd 0.990 0.930 0.820
+Ks 0.400 0.400 0.400
+Ns 40.0
+d 1.0
+illum 2
+
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm

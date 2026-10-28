@@ -1,0 +1,17 @@
+# Sítio do Sol - materials for barrel
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl metal
+Ka 0.350 0.360 0.400
+Kd 0.350 0.360 0.400
+Ks 0.800 0.800 0.800
+Ns 80.0
+d 1.0
+illum 2

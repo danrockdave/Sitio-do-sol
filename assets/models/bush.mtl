@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for bush
+newmtl crown_dark
+Ka 0.220 0.480 0.220
+Kd 0.220 0.480 0.220
+Ks 0.060 0.060 0.060
+Ns 10.0
+d 1.0
+illum 2
+
+newmtl crown
+Ka 0.380 0.660 0.240
+Kd 0.380 0.660 0.240
+Ks 0.060 0.060 0.060
+Ns 10.0
+d 1.0
+illum 2

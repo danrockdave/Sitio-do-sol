@@ -1,0 +1,49 @@
+# Sítio do Sol - materials for scarecrow
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl shirt
+Ka 0.860 0.300 0.260
+Kd 0.860 0.300 0.260
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl overalls
+Ka 0.270 0.450 0.780
+Kd 0.270 0.450 0.780
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl straw
+Ka 0.950 0.800 0.420
+Kd 0.950 0.800 0.420
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl sack
+Ka 0.880 0.760 0.560
+Kd 0.880 0.760 0.560
+Ks 0.020 0.020 0.020
+Ns 6.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2

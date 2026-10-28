@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for ring_marker
+newmtl trim_white
+Ka 0.980 0.970 0.950
+Kd 0.980 0.970 0.950
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2

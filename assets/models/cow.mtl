@@ -1,0 +1,64 @@
+# Sítio do Sol - materials for cow
+newmtl white_fur
+Ka 0.970 0.960 0.930
+Kd 0.970 0.960 0.930
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl black_fur
+Ka 0.160 0.150 0.150
+Kd 0.160 0.150 0.150
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl pink
+Ka 0.960 0.630 0.640
+Kd 0.960 0.630 0.640
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl hoof
+Ka 0.300 0.250 0.220
+Kd 0.300 0.250 0.220
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl horn
+Ka 0.930 0.880 0.740
+Kd 0.930 0.880 0.740
+Ks 0.200 0.200 0.200
+Ns 30.0
+d 1.0
+illum 2
+
+newmtl collar
+Ka 0.700 0.180 0.180
+Kd 0.700 0.180 0.180
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl bell
+Ka 0.980 0.780 0.200
+Kd 0.980 0.780 0.200
+Ks 0.900 0.900 0.900
+Ns 90.0
+d 1.0
+illum 2

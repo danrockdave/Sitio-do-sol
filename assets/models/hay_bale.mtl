@@ -1,0 +1,9 @@
+# Sítio do Sol - materials for hay_bale
+newmtl hay
+Ka 0.950 0.820 0.450
+Kd 0.950 0.820 0.450
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2
+map_Kd ../textures/hay.ppm

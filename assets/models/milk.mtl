@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for milk
+newmtl milk
+Ka 0.980 0.980 0.980
+Kd 0.980 0.980 0.980
+Ks 0.500 0.500 0.500
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl cap_blue
+Ka 0.250 0.480 0.900
+Kd 0.250 0.480 0.900
+Ks 0.400 0.400 0.400
+Ns 40.0
+d 1.0
+illum 2

@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for pumpkin_0
+newmtl soil_mound
+Ka 0.420 0.280 0.180
+Kd 0.420 0.280 0.180
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2
+
+newmtl seed
+Ka 0.920 0.850 0.620
+Kd 0.920 0.850 0.620
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
