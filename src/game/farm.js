@@ -113,7 +113,28 @@ export class Farm {
       tile.crop = null;
     }
     tile.pop = 1;
-    return { produce: def.produce, amount };
+    const seed = def.seedBack && random() < def.seedBack ? `seed_${tile.crop ? tile.crop.type : def.produce}` : null;
+    return { produce: def.produce, amount, seed };
+  }
+
+  /** Rain and the irrigation pipes water every tilled tile. Returns how many. */
+  waterAll() {
+    let n = 0;
+    for (const tile of this.tiles.values()) {
+      if (!tile.tilled) continue;
+      tile.wet = WET_HOURS;
+      n++;
+    }
+    return n;
+  }
+
+  /** Number of planted crops of a type at or beyond a growth stage. */
+  countCrops(type, minStage = 0) {
+    let n = 0;
+    for (const tile of this.tiles.values()) {
+      if (tile.crop && tile.crop.type === type && this.stageOf(tile.crop) >= minStage) n++;
+    }
+    return n;
   }
 
   /** Advances growth and drying. Returns tiles whose crop reached a new stage. */

@@ -1,0 +1,48 @@
+# Sítio do Sol - materials for goat
+newmtl goat_fur
+Ka 0.900 0.840 0.740
+Kd 0.900 0.840 0.740
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl goat_dark
+Ka 0.460 0.320 0.220
+Kd 0.460 0.320 0.220
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl hoof
+Ka 0.300 0.250 0.220
+Kd 0.300 0.250 0.220
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl pink
+Ka 0.960 0.630 0.640
+Kd 0.960 0.630 0.640
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl horn
+Ka 0.930 0.880 0.740
+Kd 0.930 0.880 0.740
+Ks 0.200 0.200 0.200
+Ns 30.0
+d 1.0
+illum 2

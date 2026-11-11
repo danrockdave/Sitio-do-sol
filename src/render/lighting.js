@@ -40,7 +40,18 @@ function clampElevation(dir, minY) {
   return normalize([dir[0], Math.max(dir[1], minY), dir[2]]);
 }
 
-export function computeEnvironment(hour) {
+const luminance = (c) => c[0] * 0.3 + c[1] * 0.55 + c[2] * 0.15;
+/** Desaturates a colour toward grey and scales it (cloudy and rainy days). */
+const grey = (c, amount, scale = 1) => {
+  const l = luminance(c);
+  return [lerp(c[0], l, amount) * scale, lerp(c[1], l, amount) * scale, lerp(c[2], l, amount) * scale];
+};
+
+/**
+ * overcast 0..1 greys out the sky, softens the sun and the shadows;
+ * rain 0..1 adds fog; wetness 0..1 darkens and shines the ground (shader).
+ */
+export function computeEnvironment(hour, overcast = 0, rain = 0, wetness = 0) {
   const h = ((hour % 24) + 24) % 24;
   let i = 0;
   while (i < KEYS.length - 2 && KEYS[i + 1].h <= h) i++;
@@ -61,24 +72,29 @@ export function computeEnvironment(hour) {
 
   const glow = lerp(a.glow, b.glow, t);
   const sunHeight = Math.sin(sunAngle);
+  const o = overcast;
+  const horizon = grey(lerp3(a.horizon, b.horizon, t), 0.75 * o, 1 - 0.3 * o);
   return {
     hour: h,
     lightDir,
-    lightColor: lerp3(a.light, b.light, t),
-    skyTop: lerp3(a.top, b.top, t),
-    skyHorizon: lerp3(a.horizon, b.horizon, t),
-    ambientSky: lerp3(a.sky, b.sky, t),
+    lightColor: grey(lerp3(a.light, b.light, t), 0.5 * o, 1 - 0.55 * o),
+    skyTop: grey(lerp3(a.top, b.top, t), 0.85 * o, 1 - 0.35 * o),
+    skyHorizon: horizon,
+    ambientSky: grey(lerp3(a.sky, b.sky, t), 0.45 * o, 1 + 0.3 * o),
     ambientGround: lerp3(a.ground, b.ground, t),
-    cloudColor: lerp3(a.cloud, b.cloud, t),
-    fogColor: lerp3(a.horizon, b.horizon, t),
-    fogDensity: lerp(0.010, 0.016, glow),
-    glow,
+    cloudColor: grey(lerp3(a.cloud, b.cloud, t), 0.8 * o, 1 - 0.38 * o),
+    fogColor: horizon,
+    fogDensity: lerp(0.010, 0.016, glow) + 0.004 * o + 0.011 * rain,
+    glow: Math.min(1, glow + 0.25 * o * (1 - glow)),
     sunDir,
     moonDir,
-    sunVisible: smooth(-0.12, 0.05, sunHeight),
-    moonVisible: smooth(-0.1, 0.1, Math.sin(moonAngle)) * glow,
-    stars: smooth(0.55, 1.0, glow),
-    shadowStrength: lerp(0.85, 0.45, moonWeight) * (1 - 0.6 * smooth(0.35, 0.8, glow) * (1 - moonWeight)),
+    sunVisible: smooth(-0.12, 0.05, sunHeight) * (1 - 0.95 * o),
+    moonVisible: smooth(-0.1, 0.1, Math.sin(moonAngle)) * glow * (1 - 0.9 * o),
+    stars: smooth(0.55, 1.0, glow) * (1 - o),
+    shadowStrength: lerp(0.85, 0.45, moonWeight) * (1 - 0.6 * smooth(0.35, 0.8, glow) * (1 - moonWeight)) * (1 - 0.7 * o),
     isNight: glow > 0.5,
+    overcast: o,
+    rain,
+    wetness,
   };
 }

@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for potato_item
+newmtl potato
+Ka 0.800 0.620 0.400
+Kd 0.800 0.620 0.400
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl potato_eye
+Ka 0.520 0.360 0.220
+Kd 0.520 0.360 0.220
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

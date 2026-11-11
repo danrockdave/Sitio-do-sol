@@ -1,0 +1,33 @@
+# Sítio do Sol - materials for fishing_rod
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl bamboo
+Ka 0.860 0.780 0.480
+Kd 0.860 0.780 0.480
+Ks 0.250 0.250 0.250
+Ns 30.0
+d 1.0
+illum 2
+
+newmtl metal
+Ka 0.350 0.360 0.400
+Kd 0.350 0.360 0.400
+Ks 0.800 0.800 0.800
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl metal_light
+Ka 0.700 0.720 0.760
+Kd 0.700 0.720 0.760
+Ks 0.900 0.900 0.900
+Ns 90.0
+d 1.0
+illum 2

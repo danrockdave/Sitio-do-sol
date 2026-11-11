@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for lettuce_item
+newmtl lettuce
+Ka 0.620 0.860 0.340
+Kd 0.620 0.860 0.340
+Ks 0.100 0.100 0.100
+Ns 14.0
+d 1.0
+illum 2
+
+newmtl lettuce_dark
+Ka 0.360 0.660 0.220
+Kd 0.360 0.660 0.220
+Ks 0.100 0.100 0.100
+Ns 14.0
+d 1.0
+illum 2

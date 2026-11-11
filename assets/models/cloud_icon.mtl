@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for cloud_icon
+newmtl cloud
+Ka 0.970 0.980 1.000
+Kd 0.970 0.980 1.000
+Ks 0.100 0.100 0.100
+Ns 12.0
+d 1.0
+illum 2

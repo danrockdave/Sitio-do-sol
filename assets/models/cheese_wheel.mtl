@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for cheese_wheel
+newmtl cheese_rind
+Ka 0.940 0.700 0.300
+Kd 0.940 0.700 0.300
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl cheese
+Ka 0.990 0.860 0.420
+Kd 0.990 0.860 0.420
+Ks 0.250 0.250 0.250
+Ns 24.0
+d 1.0
+illum 2

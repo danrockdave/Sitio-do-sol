@@ -16,6 +16,7 @@ uniform float uMoonVisible;
 uniform float uStars;
 uniform float uTime;
 uniform vec3 uCloudColor;
+uniform float uOvercast;       // 0 clear .. 1 fully clouded (rain)
 
 out vec4 outColor;
 
@@ -75,10 +76,13 @@ void main() {
 
     // clouds on a virtual plane above the camera
     if (h > 0.02) {
-        vec2 uv = dir.xz / h * 1.6 + vec2(uTime * 0.012, uTime * 0.004);
-        float c = smoothstep(0.52, 0.78, fbm(uv));
+        vec2 uv = dir.xz / h * 1.6 + vec2(uTime * 0.012, uTime * 0.004) * (1.0 + 1.5 * uOvercast);
+        float n = fbm(uv);
+        float c = smoothstep(0.52 - 0.42 * uOvercast, 0.78 - 0.3 * uOvercast, n);
         float fade = smoothstep(0.02, 0.25, h);
-        color = mix(color, uCloudColor, c * 0.75 * fade);
+        // heavier clouds get darker bellies
+        vec3 cloud = uCloudColor * (1.0 - 0.35 * uOvercast * smoothstep(0.4, 0.9, n));
+        color = mix(color, cloud, c * (0.75 + 0.2 * uOvercast) * fade);
     }
 
     outColor = vec4(color, 1.0);

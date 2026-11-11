@@ -1,13 +1,18 @@
 /**
- * Farm animals: wander inside their pen, produce eggs / milk / wool on a
- * timer and are animated with per-part rotations (legs, head, wings, tail).
+ * Farm animals: wander inside their pen, produce eggs / milk / wool / truffles
+ * on a timer and are animated with per-part rotations (legs, head, wings, tail).
+ * Petting once a day raises their friendship (love 0..5), and happier animals
+ * produce faster.
  */
 
 import { ANIMALS } from './data.js';
 import { PENS } from './world.js';
 import { pivotRotation, placement, angleLerp } from './animate.js';
 
-const BUBBLE_HEIGHT = { chicken: 0.85, cow: 1.75, sheep: 1.45 };
+const BUBBLE_HEIGHT = { chicken: 0.85, cow: 1.75, sheep: 1.45, duck: 0.8, goat: 1.35, pig: 1.15 };
+const BIRDS = new Set(['chicken', 'duck']);
+export const MAX_LOVE = 5;
+const LOVE_PER_PET = 0.5;
 let nextId = 1;
 
 export class Animal {
@@ -32,7 +37,31 @@ export class Animal {
     this.hoursLeft = this.def.hours * (0.3 + random() * 0.6);
     this.ready = false;
     this.joy = 0;               // little hop after being collected from
+    this.love = 0;              // friendship 0..MAX_LOVE
+    this.pettedToday = false;
     if (state) Object.assign(this, state);
+  }
+
+  /** Production time for one product, shorter for happier animals. */
+  get cycleHours() {
+    return this.def.hours * (1 - 0.06 * Math.floor(this.love));
+  }
+
+  get hearts() {
+    return Math.floor(this.love);
+  }
+
+  /** Production timer (in-game hours). */
+  advance(hours) {
+    if (this.ready) return;
+    this.hoursLeft -= hours;
+    if (this.hoursLeft <= 0) this.ready = true;
+  }
+
+  pet() {
+    this.pettedToday = true;
+    this.love = Math.min(MAX_LOVE, this.love + LOVE_PER_PET);
+    this.joy = 1;
   }
 
   get bubbleHeight() {
@@ -40,11 +69,7 @@ export class Animal {
   }
 
   update(dt, hours, others) {
-    // production timer (in-game hours)
-    if (!this.ready) {
-      this.hoursLeft -= hours;
-      if (this.hoursLeft <= 0) this.ready = true;
-    }
+    this.advance(hours);
     this.joy = Math.max(0, this.joy - dt * 1.5);
 
     const m = this.def.radius + 0.25;
@@ -72,7 +97,7 @@ export class Animal {
         const step = Math.min(dist, this.def.speed * dt * facing);
         this.pos[0] += Math.sin(this.yaw) * step;
         this.pos[2] += Math.cos(this.yaw) * step;
-        this.phase += dt * this.def.speed * (this.type === 'chicken' ? 16 : 7);
+        this.phase += dt * this.def.speed * (BIRDS.has(this.type) ? 16 : 7);
       }
       if (dist < 0.15 || this.timer <= 0) {
         this.state = 'idle';
@@ -101,7 +126,7 @@ export class Animal {
   collect() {
     if (!this.ready) return null;
     this.ready = false;
-    this.hoursLeft = this.def.hours;
+    this.hoursLeft = this.cycleHours;
     this.joy = 1;
     return this.def.product;
   }
@@ -112,10 +137,13 @@ export class Animal {
     const s = Math.sin(this.phase);
     const pose = {};
     let y = 0;
+    let roll = 0;
     const hop = Math.sin(this.joy * Math.PI) * 0.35;
 
-    if (this.type === 'chicken') {
+    if (BIRDS.has(this.type)) {
+      // ducks waddle: the whole body rolls from side to side
       y = walking ? Math.abs(s) * 0.05 : 0;
+      if (this.type === 'duck') roll = walking ? s * 0.12 : 0;
       if (pivots.leg_l) pose.leg_l = pivotRotation(pivots.leg_l, walking ? s * 40 : 0);
       if (pivots.leg_r) pose.leg_r = pivotRotation(pivots.leg_r, walking ? -s * 40 : 0);
       const peck = Math.sin(this.idleAction * Math.PI) * 55;
@@ -133,14 +161,18 @@ export class Animal {
       y = walking ? Math.abs(Math.cos(this.phase)) * 0.025 : 0;
       const graze = Math.sin(Math.min(1, this.idleAction * 1.2) * Math.PI) * 32;
       if (pivots.head) pose.head = pivotRotation(pivots.head, walking ? s * 4 : graze, Math.sin(time * 0.7 + this.phase) * 6);
-      if (pivots.tail) pose.tail = pivotRotation(pivots.tail, 0, 0, Math.sin(time * 3.1 + this.phase) * 18);
+      const wag = this.type === 'pig' ? Math.sin(time * 9 + this.phase) * 30 : Math.sin(time * 3.1 + this.phase) * 18;
+      if (pivots.tail) pose.tail = pivotRotation(pivots.tail, 0, this.type === 'pig' ? wag : 0, this.type === 'pig' ? 0 : wag);
     }
     const breathe = 1 + Math.sin(time * 2.2 + this.phase) * 0.012;
-    const matrix = placement(this.pos[0], y + hop, this.pos[2], this.yaw, { scale: [1, breathe, 1] });
+    const matrix = placement(this.pos[0], y + hop, this.pos[2], this.yaw, { scale: [1, breathe, 1], tiltZ: roll });
     return { matrix, pose };
   }
 
   serialize() {
-    return { type: this.type, pos: this.pos, yaw: this.yaw, hoursLeft: this.hoursLeft, ready: this.ready };
+    return {
+      type: this.type, pos: this.pos, yaw: this.yaw, hoursLeft: this.hoursLeft, ready: this.ready,
+      love: this.love, pettedToday: this.pettedToday,
+    };
   }
 }

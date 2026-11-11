@@ -1,0 +1,48 @@
+# Sítio do Sol - materials for fish_tucunare
+newmtl fish_tucunare
+Ka 0.740 0.780 0.300
+Kd 0.740 0.780 0.300
+Ks 0.700 0.700 0.700
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl fish_belly
+Ka 0.970 0.960 0.930
+Kd 0.970 0.960 0.930
+Ks 0.600 0.600 0.600
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl fin_yellow
+Ka 0.990 0.780 0.240
+Kd 0.990 0.780 0.240
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl fish_dark
+Ka 0.120 0.110 0.100
+Kd 0.120 0.110 0.100
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2
+
+newmtl fin_red
+Ka 0.920 0.360 0.240
+Kd 0.920 0.360 0.240
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2

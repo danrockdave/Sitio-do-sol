@@ -47,6 +47,45 @@ function sheep(a, out, t, scale = 1) {
   });
 }
 
+/** Duck "quack": nasal square wave through a narrow formant. */
+function duck(a, out, t, scale = 1) {
+  const n = Math.random() < 0.5 ? 2 : 3;
+  for (let i = 0; i < n; i++) {
+    const f = rnd(330, 380);
+    tone(a, out, t + i * 0.16, {
+      type: 'square', freq: f, freqEnd: f * 0.78, dur: 0.12, attack: 0.008, gain: 0.16 * scale,
+      filter: { type: 'bandpass', freq: 1150, q: 5 }, reverb: 0.1,
+    });
+  }
+}
+
+/** Goat bleat: higher and shakier than the sheep. */
+function goat(a, out, t, scale = 1) {
+  const f = rnd(320, 380);
+  tone(a, out, t, {
+    type: 'sawtooth', freq: f, freqEnd: f * 0.8, dur: 0.6, attack: 0.03, hold: 0.15, gain: 0.26 * scale,
+    filter: { type: 'bandpass', freq: 1250, q: 3 }, vibrato: { rate: 11, depth: 22 }, reverb: 0.15,
+  });
+}
+
+/** Pig "oink": two short low grunts. */
+function pig(a, out, t, scale = 1) {
+  for (let i = 0; i < 2; i++) {
+    const f = rnd(150, 190);
+    tone(a, out, t + i * 0.17, {
+      type: 'sawtooth', freq: f, freqEnd: f * 1.35, dur: 0.12, attack: 0.01, gain: 0.28 * scale,
+      filter: { type: 'bandpass', freq: 650, q: 4 }, reverb: 0.1,
+    });
+    noise(a, out, t + i * 0.17, { dur: 0.1, type: 'bandpass', freq: 500, q: 3, gain: 0.08 * scale });
+  }
+}
+
+/** Water plop, used for the bobber, nibbles and splashes. */
+function plop(a, out, t, f0 = 600, gain = 0.25) {
+  tone(a, out, t, { type: 'sine', freq: f0, freqEnd: f0 * 2.4, dur: 0.09, attack: 0.002, gain, reverb: 0.25 });
+  noise(a, out, t, { dur: 0.12, type: 'bandpass', freq: 1800, q: 1, gain: gain * 0.5 });
+}
+
 /** Rooster crow for the morning. */
 function rooster(a, out, t) {
   const segments = [[520, 780, 0.16], [780, 980, 0.2], [980, 900, 0.35], [900, 600, 0.3]];
@@ -114,7 +153,50 @@ export const SOUNDS = {
   chicken(a, out, t, o) { chicken(a, out, t, o.scale ?? 1); },
   cow(a, out, t, o) { cow(a, out, t, o.scale ?? 1); },
   sheep(a, out, t, o) { sheep(a, out, t, o.scale ?? 1); },
+  duck(a, out, t, o) { duck(a, out, t, o.scale ?? 1); },
+  goat(a, out, t, o) { goat(a, out, t, o.scale ?? 1); },
+  pig(a, out, t, o) { pig(a, out, t, o.scale ?? 1); },
   rooster(a, out, t) { rooster(a, out, t); },
+
+  // ---- fishing ------------------------------------------------------------
+  cast(a, out, t) {
+    noise(a, out, t, { dur: 0.35, type: 'bandpass', freq: 900, freqEnd: 3800, q: 2, gain: 0.14, attack: 0.04 });
+    tone(a, out, t + 0.05, { type: 'triangle', freq: 1800, freqEnd: 900, dur: 0.3, gain: 0.03 });
+  },
+  splash(a, out, t) {
+    plop(a, out, t, 420, 0.3);
+    noise(a, out, t + 0.02, { dur: 0.3, type: 'lowpass', freq: 2400, freqEnd: 600, gain: 0.18 });
+  },
+  nibble(a, out, t) {
+    plop(a, out, t, rnd(700, 900), 0.12);
+  },
+  bite(a, out, t) {
+    plop(a, out, t, 380, 0.35);
+    noise(a, out, t, { dur: 0.25, type: 'lowpass', freq: 1800, gain: 0.25 });
+    tone(a, out, t + 0.04, { type: 'square', freq: midiToFreq(86), dur: 0.08, gain: 0.07, filter: { type: 'lowpass', freq: 4000 } });
+    tone(a, out, t + 0.13, { type: 'square', freq: midiToFreq(91), dur: 0.12, gain: 0.07, filter: { type: 'lowpass', freq: 4000 } });
+  },
+  reel(a, out, t, o) {
+    const p = o.pitch ?? 1;
+    for (let i = 0; i < 4; i++) {
+      tone(a, out, t + i * 0.035, { type: 'square', freq: 1400 * p, dur: 0.012, attack: 0.001, gain: 0.05, filter: { type: 'highpass', freq: 900 } });
+    }
+    tone(a, out, t, { type: 'sine', freq: 500 * p, freqEnd: 700 * p, dur: 0.12, gain: 0.08 });
+  },
+  miss(a, out, t) {
+    tone(a, out, t, { type: 'sawtooth', freq: 180, freqEnd: 120, dur: 0.18, gain: 0.08, filter: { type: 'lowpass', freq: 900 } });
+  },
+  catch(a, out, t) {
+    plop(a, out, t, 300, 0.3);
+    arpeggio(a, out, t + 0.12, [76, 79, 84, 88, 91], { step: 0.07, gain: 0.15, dur: 0.8, reverb: 0.4 });
+  },
+  escape(a, out, t) {
+    plop(a, out, t, 500, 0.2);
+    tone(a, out, t + 0.05, { type: 'triangle', freq: midiToFreq(67), freqEnd: midiToFreq(60), dur: 0.35, gain: 0.08 });
+  },
+  drip(a, out, t) {
+    tone(a, out, t, { type: 'sine', freq: rnd(1800, 3200), freqEnd: rnd(900, 1400), dur: 0.03, attack: 0.001, gain: 0.025 });
+  },
 
   // ---- economy --------------------------------------------------------------
   sell(a, out, t) {
@@ -132,6 +214,41 @@ export const SOUNDS = {
     [60, 64, 67].forEach((m) => tone(a, out, t + 0.4, {
       type: 'triangle', freq: midiToFreq(m), dur: 1.2, attack: 0.05, gain: 0.07, reverb: 0.4,
     }));
+  },
+  order(a, out, t) {
+    noise(a, out, t, { dur: 0.08, type: 'lowpass', freq: 1200, gain: 0.2 });
+    arpeggio(a, out, t + 0.04, [79, 83, 86, 91], { step: 0.07, gain: 0.15, dur: 0.7 });
+    bell(a, out, t + 0.32, { freq: midiToFreq(98), gain: 0.06, dur: 0.8 });
+  },
+  levelup(a, out, t) {
+    const melody = [72, 76, 79, 84, 88];
+    melody.forEach((m, i) => pluck(a, out, t + i * 0.08, { freq: midiToFreq(m), gain: 0.15, dur: 0.7, reverb: 0.4 }));
+    [64, 67, 72].forEach((m) => tone(a, out, t + 0.42, {
+      type: 'triangle', freq: midiToFreq(m), dur: 1.3, attack: 0.05, gain: 0.07, reverb: 0.5,
+    }));
+  },
+  chapter(a, out, t) {
+    const melody = [72, 76, 79, 84, 79, 84, 88];
+    melody.forEach((m, i) => pluck(a, out, t + i * 0.11, { freq: midiToFreq(m), gain: 0.17, dur: 0.8, reverb: 0.4 }));
+    [60, 64, 67, 72].forEach((m) => tone(a, out, t + 0.75, {
+      type: 'triangle', freq: midiToFreq(m), dur: 1.8, attack: 0.08, gain: 0.07, reverb: 0.5,
+    }));
+  },
+  letter(a, out, t) {
+    noise(a, out, t, { dur: 0.25, type: 'bandpass', freq: 3000, freqEnd: 1500, q: 1, gain: 0.08, attack: 0.03 });
+    bell(a, out, t + 0.12, { freq: midiToFreq(88), gain: 0.07, dur: 1 });
+  },
+  page(a, out, t) {
+    noise(a, out, t, { dur: 0.18, type: 'bandpass', freq: 2600, freqEnd: 4200, q: 1.2, gain: 0.08, attack: 0.02 });
+  },
+  machine(a, out, t) {
+    tone(a, out, t, { type: 'square', freq: 110, freqEnd: 90, dur: 0.18, gain: 0.05, filter: { type: 'lowpass', freq: 600 } });
+    noise(a, out, t + 0.05, { dur: 0.2, type: 'bandpass', freq: 900, q: 2, gain: 0.12 });
+    pluck(a, out, t + 0.15, { freq: midiToFreq(76), gain: 0.08, dur: 0.4 });
+  },
+  machine_done(a, out, t) {
+    bell(a, out, t, { freq: midiToFreq(91), gain: 0.08, dur: 1.2 });
+    bell(a, out, t + 0.12, { freq: midiToFreq(96), gain: 0.07, dur: 1.2 });
   },
   goal(a, out, t) {
     const melody = [72, 76, 79, 84, 79, 84, 88];

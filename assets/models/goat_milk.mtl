@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for goat_milk
+newmtl milk
+Ka 0.980 0.980 0.980
+Kd 0.980 0.980 0.980
+Ks 0.500 0.500 0.500
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl cap_green
+Ka 0.320 0.640 0.340
+Kd 0.320 0.640 0.340
+Ks 0.400 0.400 0.400
+Ns 40.0
+d 1.0
+illum 2

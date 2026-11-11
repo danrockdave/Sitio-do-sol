@@ -218,6 +218,7 @@ export class Renderer {
     p.set1f('uStars', env.stars);
     p.set1f('uTime', frame.time);
     p.set3fv('uCloudColor', env.cloudColor);
+    p.set1f('uOvercast', env.overcast || 0);
     gl.bindVertexArray(this.emptyVao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     this.stats.drawCalls += 1;
@@ -244,6 +245,7 @@ export class Renderer {
     p.set3fv('uFogColor', env.fogColor);
     p.set1f('uFogDensity', env.fogDensity);
     p.set1f('uGlow', env.glow);
+    p.set1f('uWetness', env.wetness || 0);
     p.set1i('uShadowsEnabled', shadowsOn ? 1 : 0);
     p.set1f('uShadowStrength', env.shadowStrength);
     p.set1f('uShadowTexel', 1 / this.shadowMap.size);

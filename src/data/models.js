@@ -19,13 +19,22 @@
 
 export const MODEL_BASE = 'assets/models/';
 
-const CROP_WIND = { carrot: 0.35, tomato: 0.14, corn: 0.06, pumpkin: 0.12 };
+const CROP_WIND = {
+  carrot: 0.35, tomato: 0.14, corn: 0.06, pumpkin: 0.12,
+  lettuce: 0.16, potato: 0.3, strawberry: 0.2, sunflower: 0.05, cassava: 0.12, watermelon: 0.1,
+};
 
 function cropStages(name) {
   const entries = {};
   for (let stage = 0; stage <= 4; stage++) {
     entries[`${name}_${stage}`] = { file: `${name}_${stage}.obj`, wind: stage >= 1 ? CROP_WIND[name] : 0 };
   }
+  return entries;
+}
+
+function itemModels(names) {
+  const entries = {};
+  for (const name of names) entries[name] = { file: `${name}.obj` };
   return entries;
 }
 
@@ -62,12 +71,41 @@ export const MODELS = {
       leg_bl: [-0.14, 0.42, -0.24], leg_br: [0.14, 0.42, -0.24],
     },
   },
+  duck: {
+    file: 'duck.obj',
+    pivots: {
+      head: [0, 0.30, 0.12], leg_l: [-0.05, 0.12, 0], leg_r: [0.05, 0.12, 0],
+      wing_l: [-0.15, 0.27, 0], wing_r: [0.15, 0.27, 0],
+    },
+  },
+  goat: {
+    file: 'goat.obj',
+    pivots: {
+      head: [0, 0.80, 0.34], tail: [0, 0.80, -0.36],
+      leg_fl: [-0.13, 0.45, 0.25], leg_fr: [0.13, 0.45, 0.25],
+      leg_bl: [-0.13, 0.45, -0.25], leg_br: [0.13, 0.45, -0.25],
+    },
+  },
+  pig: {
+    file: 'pig.obj',
+    pivots: {
+      head: [0, 0.5, 0.3], tail: [0, 0.55, -0.45],
+      leg_fl: [-0.15, 0.3, 0.24], leg_fr: [0.15, 0.3, 0.24],
+      leg_bl: [-0.15, 0.3, -0.26], leg_br: [0.15, 0.3, -0.26],
+    },
+  },
 
   // crops: five growth stages each (0 = seeds ... 4 = ripe)
   ...cropStages('carrot'),
   ...cropStages('tomato'),
   ...cropStages('corn'),
   ...cropStages('pumpkin'),
+  ...cropStages('lettuce'),
+  ...cropStages('potato'),
+  ...cropStages('strawberry'),
+  ...cropStages('sunflower'),
+  ...cropStages('cassava'),
+  ...cropStages('watermelon'),
 
   // trees and nature
   fruit_tree: { file: 'fruit_tree.obj', wind: 0.012 },
@@ -77,6 +115,9 @@ export const MODELS = {
   tree_pine: { file: 'tree_pine.obj', wind: 0.006 },
   apple: { file: 'apple.obj' },
   orange: { file: 'orange.obj' },
+  mango: { file: 'mango.obj' },
+  ipe_bare: { file: 'ipe_bare.obj', wind: 0.006 },
+  ipe_bloom: { file: 'ipe_bloom.obj', wind: 0.012 },
   bush: { file: 'bush.obj', wind: 0.05 },
   rock: { file: 'rock.obj' },
   rock_b: { file: 'rock_b.obj' },
@@ -108,6 +149,23 @@ export const MODELS = {
   tile_marker: { file: 'tile_marker.obj', shadow: false },
   ring_marker: { file: 'ring_marker.obj', shadow: false },
 
+  // shed, production machines and village props
+  shed: { file: 'shed.obj' },
+  cheese_press: { file: 'cheese_press.obj', pivots: { wheel: [0, 1.8, 0] } },
+  jam_pot: { file: 'jam_pot.obj', pivots: { spoon: [0, 0.7, 0] } },
+  fire: { file: 'fire.obj', shadow: false },
+  loom: { file: 'loom.obj', pivots: { beater: [0, 1.3, 0.12] } },
+  oven: { file: 'oven.obj' },
+  oven_fire: { file: 'oven_fire.obj', shadow: false },
+  beehive: { file: 'beehive.obj' },
+  mailbox: { file: 'mailbox.obj', pivots: { flag: [0.17, 1.15, -0.05] } },
+  order_board: { file: 'order_board.obj' },
+
+  // fishing
+  fishing_rod: { file: 'fishing_rod.obj' },
+  bobber: { file: 'bobber.obj', shadow: false },
+  fishing_line: { file: 'fishing_line.obj', shadow: false },
+
   // items (HUD icons and held tools)
   carrot_item: { file: 'carrot_item.obj' },
   tomato_item: { file: 'tomato_item.obj' },
@@ -125,4 +183,13 @@ export const MODELS = {
   coin: { file: 'coin.obj' },
   upgrade_icon: { file: 'upgrade_icon.obj' },
   sapling: { file: 'sapling.obj' },
+  ...itemModels([
+    'lettuce_item', 'potato_item', 'strawberry_item', 'sunflower_item', 'cassava_item', 'watermelon_item', 'mango_item',
+    'duck_egg', 'goat_milk', 'truffle', 'honey',
+    'fish_lambari', 'fish_tilapia', 'fish_traira', 'fish_carpa', 'fish_tucunare', 'fish_pintado', 'fish_dourado',
+    'old_boot', 'message_bottle',
+    'cheese_wheel', 'goat_cheese', 'jam_apple', 'jam_orange', 'jam_strawberry', 'jam_mango', 'pumpkin_sweet',
+    'cloth_roll', 'corn_cake', 'tapioca',
+    'heart', 'star', 'check', 'lock', 'letter', 'journal', 'sun_icon', 'cloud_icon', 'rain_icon',
+  ]),
 };

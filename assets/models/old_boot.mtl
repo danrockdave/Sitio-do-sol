@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for old_boot
+newmtl boot_leather
+Ka 0.360 0.220 0.120
+Kd 0.360 0.220 0.120
+Ks 0.200 0.200 0.200
+Ns 20.0
+d 1.0
+illum 2
+
+newmtl hoof
+Ka 0.300 0.250 0.220
+Kd 0.300 0.250 0.220
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl leaf_dark
+Ka 0.250 0.550 0.200
+Kd 0.250 0.550 0.200
+Ks 0.080 0.080 0.080
+Ns 12.0
+d 1.0
+illum 2

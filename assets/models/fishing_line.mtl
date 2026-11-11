@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for fishing_line
+newmtl line
+Ka 0.960 0.960 0.960
+Kd 0.960 0.960 0.960
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2

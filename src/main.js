@@ -26,7 +26,7 @@ import { drawHud, DEBUG_VIEW_COUNT, debugViewName } from './ui/hud.js';
 import { Menus, drawLoading, drawTitle } from './ui/menus.js';
 import { World } from './game/world.js';
 import { Game } from './game/game.js';
-import { ICONS, HOTBAR } from './game/data.js';
+import { ICONS } from './game/data.js';
 import { AudioEngine } from './audio/engine.js';
 
 const canvas = document.getElementById('game');
@@ -37,7 +37,8 @@ const QUALITY_KEY = 'sitio-do-sol-quality-v1';
 // sounds that also vibrate the phone inside the native app
 const HAPTICS = {
   till: 'light', plant: 'light', water: 'light', harvest: 'medium', collect: 'medium', fruit: 'medium',
-  sell: 'success', buy: 'light', upgrade: 'success', goal: 'success', error: 'warning',
+  sell: 'success', buy: 'light', upgrade: 'success', error: 'warning',
+  bite: 'medium', reel: 'light', catch: 'success', levelup: 'success', order: 'success', chapter: 'success',
 };
 
 function showError(err) {
@@ -96,6 +97,7 @@ async function boot() {
   const world = new World();
   const game = new Game(world);
   game.tapToWalk = PLATFORM.touch;
+  game.seedSlots = PLATFORM.touch ? 4 : 5;
   game.showcase();
   const scene = new SceneBuilder(gl, assets, world);
   const splatTexture = createTexture(gl, world.splatImage(), { repeat: false, mipmaps: false });
@@ -117,6 +119,7 @@ async function boot() {
 
   // sound: created on the first click, tap or key press (browser autoplay rules)
   const audio = new AudioEngine({ getMood: () => (computeEnvironment(game.clock.hour).isNight ? 'night' : 'day') });
+  const environment = () => computeEnvironment(game.clock.hour, game.weather.overcast, game.weather.rain, game.weather.wetness);
   const unlockAudio = () => audio.unlock();
   // touch only counts as a user gesture on pointerup / touchend in mobile browsers
   for (const type of ['pointerdown', 'pointerup', 'touchend', 'keydown']) window.addEventListener(type, unlockAudio);
@@ -220,7 +223,7 @@ async function boot() {
     const move = [forward[0] * f + right[0] * s, forward[2] * f + right[2] * s];
 
     let select = null;
-    for (let i = 0; i < HOTBAR.length; i++) {
+    for (let i = 0; i < 9; i++) {
       if (input.wasPressed(`Digit${i + 1}`, `Numpad${i + 1}`)) select = i;
     }
 
@@ -272,6 +275,10 @@ async function boot() {
     if (input.wasPressed('Tab')) {
       if (menus.open === 'inventory') menus.close();
       else if (!menus.open) menus.show('inventory');
+    }
+    if (input.wasPressed('KeyJ')) {
+      if (menus.open === 'journal') menus.close();
+      else if (!menus.open) menus.show('journal');
     }
     if (input.wasPressed('KeyH') && !menus.open) {
       menus.returnTo = null;
@@ -334,25 +341,22 @@ async function boot() {
       camera.distance = 25;
     } else {
       const controls = controlsFrom(dt);
-      if (controls.select !== null && controls.select !== game.selected) game.sound('select');
       const paused = !!menus.open || fade !== null;
       game.update(dt, paused ? { move: [0, 0], select: null } : controls, paused);
       for (const ev of game.events) {
         if (ev.type === 'shop') menus.show('shop');
         else if (ev.type === 'sell') menus.show('sell');
         else if (ev.type === 'sleep') menus.show('sleep');
-        else if (ev.type === 'goal') {
-          menus.show('goal');
-          audio.play('goal');
-          bridge.haptic('success');
-        }
+        else if (ev.type === 'orders') menus.show('orders');
+        else if (ev.type === 'machine') menus.showMachine(ev.id);
+        else if (ev.type === 'letter') menus.showLetter(ev.id);
       }
       game.events.length = 0;
       camera.follow([game.player.pos[0], 0.6, game.player.pos[2]], dt);
     }
 
     camera.update(width / height);
-    const env = computeEnvironment(game.clock.hour);
+    const env = environment();
 
     // audio and haptics: drain the game's sound events, ambience
     audio.listener = { pos: game.player.pos, project: (p) => camera.project(p) };
@@ -363,7 +367,7 @@ async function boot() {
       }
     }
     game.sounds.length = 0;
-    audio.update(dt, env.isNight);
+    audio.update(dt, env.isNight, state === 'playing' ? game.weather.rain : 0);
     if (game.fieldDirty) {
       updateTexture(gl, splatTexture, world.splatImage());
       game.fieldDirty = false;
@@ -387,7 +391,7 @@ async function boot() {
         if (action === 'new') {
           game.newGame();
           startPlaying();
-          game.toast('Bem-vindo ao Sítio do Sol!', 'good');
+          game.toast('Bem-vindo ao Sítio do Sol! Tem uma carta da Vó na caixa de correio.', 'good');
         } else if (action === 'continue') {
           if (game.loadSaved()) startPlaying();
           else game.showcase();
@@ -412,6 +416,7 @@ async function boot() {
           if (touchActions.action) pendingTouch = touchActions.action;
           if (touchActions.pause) menus.show('pause');
           if (touchActions.backpack) menus.show('inventory');
+          if (touchActions.journal) menus.show('journal');
         }
       } else if (settings.debugView) {
         ui.text(`Phong: ${debugViewName(settings.debugView)}`, 18, 18, 18, [1, 1, 1, 1], { shadow: true });
@@ -447,7 +452,7 @@ async function boot() {
   };
   // handle for automated tests and the browser console
   window.__sitio = {
-    game, camera, renderer, menus, settings, audio, input, ui,
+    game, camera, renderer, menus, settings, audio, input, ui, scene,
     get fps() { return fps; },
     get frames() { return frameCount; },
     get quality() { return qualityId; },

@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for fish_tilapia
+newmtl fish_tilapia
+Ka 0.520 0.600 0.560
+Kd 0.520 0.600 0.560
+Ks 0.700 0.700 0.700
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl fish_belly
+Ka 0.970 0.960 0.930
+Kd 0.970 0.960 0.930
+Ks 0.600 0.600 0.600
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl fish_traira
+Ka 0.360 0.330 0.220
+Kd 0.360 0.330 0.220
+Ks 0.500 0.500 0.500
+Ns 40.0
+d 1.0
+illum 2

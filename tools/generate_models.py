@@ -19,6 +19,7 @@ Run:  python3 tools/generate_models.py
 
 import math
 import os
+import sys
 
 import numpy as np
 
@@ -1194,6 +1195,11 @@ def main():
                 make_lamp, make_windmill, make_well, make_scarecrow, make_props, make_pond, make_soil_tile, make_items]
     for build in builders:
         build()
+    # second content update (crops, animals, fishing, machines, village): tools/models_extra.py
+    sys.modules.setdefault("generate_models", sys.modules[__name__])
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import models_extra
+    models_extra.build_all()
     files = sorted(f for f in os.listdir(OUT_DIR) if f.endswith(".obj"))
     print(f"{len(files)} OBJ models written to {OUT_DIR}")
 

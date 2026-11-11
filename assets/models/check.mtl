@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for check
+newmtl check
+Ka 0.380 0.720 0.280
+Kd 0.380 0.720 0.280
+Ks 0.300 0.300 0.300
+Ns 30.0
+d 1.0
+illum 2

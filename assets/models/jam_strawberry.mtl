@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for jam_strawberry
+newmtl jam_strawberry
+Ka 0.780 0.060 0.180
+Kd 0.780 0.060 0.180
+Ks 0.700 0.700 0.700
+Ns 70.0
+d 1.0
+illum 2
+
+newmtl glass
+Ka 0.550 0.800 0.700
+Kd 0.550 0.800 0.700
+Ks 0.950 0.950 0.950
+Ns 120.0
+d 1.0
+illum 2
+
+newmtl awning_red
+Ka 0.880 0.280 0.250
+Kd 0.880 0.280 0.250
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl paper
+Ka 0.970 0.940 0.840
+Kd 0.970 0.940 0.840
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

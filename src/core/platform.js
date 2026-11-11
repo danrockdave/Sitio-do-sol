@@ -14,7 +14,7 @@ export const PLATFORM = {
   params,
   native: params.has('app') || typeof window.SitioNative !== 'undefined',
   touch: params.has('touch') || (!params.has('desktop') && coarsePointer),
-  version: '1.0.0',
+  version: '1.1.0',
 };
 
 export const QUALITY_PRESETS = {

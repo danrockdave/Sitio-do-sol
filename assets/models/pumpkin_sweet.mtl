@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for pumpkin_sweet
+newmtl jam_pumpkin
+Ka 0.960 0.460 0.100
+Kd 0.960 0.460 0.100
+Ks 0.600 0.600 0.600
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl glass
+Ka 0.550 0.800 0.700
+Kd 0.550 0.800 0.700
+Ks 0.950 0.950 0.950
+Ns 120.0
+d 1.0
+illum 2
+
+newmtl cloth
+Ka 0.550 0.400 0.700
+Kd 0.550 0.400 0.700
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl paper
+Ka 0.970 0.940 0.840
+Kd 0.970 0.940 0.840
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

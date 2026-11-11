@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for cassava_item
+newmtl cassava
+Ka 0.600 0.400 0.240
+Kd 0.600 0.400 0.240
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl cassava_flesh
+Ka 0.980 0.950 0.860
+Kd 0.980 0.950 0.860
+Ks 0.100 0.100 0.100
+Ns 12.0
+d 1.0
+illum 2

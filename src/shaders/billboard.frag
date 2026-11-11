@@ -17,8 +17,11 @@ void main() {
         color.a *= smoothstep(0.5, 0.05, r);          // soft glowing dot
     } else if (vMode == 1) {
         color *= texture(uIcons, vUV);                // icon from the atlas
-    } else {
+    } else if (vMode == 2) {
         color.a *= smoothstep(0.5, 0.46, r);          // crisp disc (bubble background)
+    } else {
+        // rain streak: brighter at the bottom, soft edges
+        color.a *= smoothstep(0.5, 0.15, abs(vLocal.x)) * (0.25 + 0.75 * (0.5 - vLocal.y));
     }
     if (color.a < 0.01) discard;
     outColor = color;

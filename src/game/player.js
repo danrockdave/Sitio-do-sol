@@ -15,9 +15,15 @@ const HELD_TOOLS = {
   watering_can: { model: 'watering_can', translate: [0, -0.2, 0.08], rotate: [0, 90, 0], scale: 0.62 },
   basket: { model: 'basket', translate: [0, -0.22, 0.04], rotate: [0, 0, 0], scale: 0.55 },
   seed: { model: 'seed_bag', translate: [0, -0.12, 0.08], rotate: [0, 0, 0], scale: 0.45 },
+  rod: { model: 'fishing_rod', translate: [0, -0.05, 0.03], rotate: [115, 0, 0], scale: 0.9 },
 };
 
-const ACTION_DURATION = { till: 0.45, clear: 0.45, water: 0.7, plant: 0.4, harvest: 0.4, collect: 0.4, pet: 0.5 };
+/** Tip of the fishing rod in the rod model space (where the line starts). */
+export const ROD_TIP = [0, 1.4, 0];
+
+const ACTION_DURATION = {
+  till: 0.45, clear: 0.45, water: 0.7, plant: 0.4, harvest: 0.4, collect: 0.4, pet: 0.5, cast: 0.55,
+};
 
 export class Player {
   constructor() {
@@ -28,6 +34,7 @@ export class Player {
     this.moving = 0;          // 0..1 blend between idle and walk
     this.running = false;
     this.action = null;       // { type, t, duration }
+    this.fishing = null;      // fishing pose: null | 'hold' | 'bite' | 'reel' | 'raise'
   }
 
   startAction(type, targetX, targetZ) {
@@ -97,12 +104,41 @@ export class Player {
           bodyTilt = 0.12 * curve;
           head = 14 * curve;
           break;
+        case 'cast':
+          // swing the rod back over the shoulder, then throw it forward
+          armR = t < 0.35 ? -60 - 100 * (t / 0.35) : -160 + 105 * Math.min(1, (t - 0.35) / 0.3);
+          armL = -25;
+          bodyTilt = t < 0.35 ? -0.08 * (t / 0.35) : 0.1 * curve;
+          break;
         default:
           // reach forward and down (plant / harvest / collect / pet)
           armR = -70 * curve;
           armL = -40 * curve;
           bodyTilt = 0.22 * curve;
           head = 20 * curve;
+          break;
+      }
+    }
+
+    if (this.fishing && !this.action) {
+      switch (this.fishing) {
+        case 'bite':
+          armR = -62 + Math.sin(time * 34) * 5;
+          armL = -30;
+          break;
+        case 'reel':
+          armR = -52 + Math.sin(time * 9) * 9;
+          armL = -48 + Math.sin(time * 9 + 1.5) * 10;
+          bodyTilt = -0.07;
+          break;
+        case 'raise':
+          armR = -168;
+          armL = -150;
+          head = -14;
+          break;
+        default:
+          armR = -60 + Math.sin(time * 1.4) * 3;
+          armL = -20;
           break;
       }
     }

@@ -1,0 +1,9 @@
+# Sítio do Sol - materials for oven_fire
+newmtl fire
+Ka 0.990 0.550 0.150
+Kd 0.990 0.550 0.150
+Ks 0.200 0.200 0.200
+Ns 20.0
+Ke 1.000 0.550 0.150
+d 1.0
+illum 2

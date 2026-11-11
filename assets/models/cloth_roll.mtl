@@ -1,0 +1,24 @@
+# Sítio do Sol - materials for cloth_roll
+newmtl fabric_blue
+Ka 0.380 0.560 0.860
+Kd 0.380 0.560 0.860
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl fabric_red
+Ka 0.860 0.320 0.300
+Kd 0.860 0.320 0.300
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl wool
+Ka 0.980 0.970 0.940
+Kd 0.980 0.970 0.940
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2

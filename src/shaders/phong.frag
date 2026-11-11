@@ -51,6 +51,7 @@ uniform float uShadowTexel;
 uniform int uPcfRadius;       // 1 = 3x3 filtering, 0 = single hardware-filtered tap
 
 uniform float uGlow;          // emissive multiplier (1 at night, ~0 at noon)
+uniform float uWetness;       // rain: darker albedo and a glossy sheen on the ground
 uniform vec3 uFogColor;
 uniform float uFogDensity;
 uniform int uDebugView;       // 0 full, 1 ambient, 2 diffuse, 3 specular, 4 normals, 5 shadow, 6 albedo
@@ -108,6 +109,10 @@ void main() {
     vec3 V = normalize(uCameraPos - vWorldPos);
     vec3 L = normalize(uLightDir);
 
+    // wet surfaces: the ground fully, other surfaces only where they face up
+    float wet = uWetness * (uMode == 1 ? 1.0 : 0.5 * max(N.y, 0.0));
+    albedo *= 1.0 - 0.3 * wet;
+
     // ambient (hemisphere: sky colour from above, ground bounce from below)
     vec3 ambient = mix(uAmbientGround, uAmbientSky, N.y * 0.5 + 0.5) * albedo;
 
@@ -118,6 +123,10 @@ void main() {
     float specTerm = NdotL > 0.0 ? pow(max(dot(R, V), 0.0), uNs) : 0.0;
     vec3 diffuse = albedo * uLightColor * NdotL * shadow;
     vec3 specular = uKs * uLightColor * specTerm * shadow;
+    if (wet > 0.0) {
+        float wetSpec = NdotL > 0.0 ? pow(max(dot(R, V), 0.0), 48.0) : 0.0;
+        specular += vec3(0.45) * wet * uLightColor * wetSpec * shadow;
+    }
 
     // point lights
     for (int i = 0; i < MAX_POINT_LIGHTS; i++) {

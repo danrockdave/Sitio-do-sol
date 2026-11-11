@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for letter
+newmtl paper
+Ka 0.970 0.940 0.840
+Kd 0.970 0.940 0.840
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl seal
+Ka 0.820 0.180 0.180
+Kd 0.820 0.180 0.180
+Ks 0.500 0.500 0.500
+Ns 50.0
+d 1.0
+illum 2

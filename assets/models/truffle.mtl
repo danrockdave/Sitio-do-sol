@@ -1,0 +1,8 @@
+# Sítio do Sol - materials for truffle
+newmtl truffle
+Ka 0.240 0.170 0.130
+Kd 0.240 0.170 0.130
+Ks 0.150 0.150 0.150
+Ns 16.0
+d 1.0
+illum 2

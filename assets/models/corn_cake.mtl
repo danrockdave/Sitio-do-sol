@@ -1,0 +1,25 @@
+# Sítio do Sol - materials for corn_cake
+newmtl cake
+Ka 0.990 0.840 0.460
+Kd 0.990 0.840 0.460
+Ks 0.100 0.100 0.100
+Ns 12.0
+d 1.0
+illum 2
+
+newmtl cake_top
+Ka 0.860 0.560 0.220
+Kd 0.860 0.560 0.220
+Ks 0.150 0.150 0.150
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl wood_pale
+Ka 0.950 0.880 0.750
+Kd 0.950 0.880 0.750
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm

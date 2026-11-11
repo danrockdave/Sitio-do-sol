@@ -1,0 +1,44 @@
+# Sítio do Sol - materials for beehive
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl hive_paint
+Ka 0.990 0.840 0.400
+Kd 0.990 0.840 0.400
+Ks 0.100 0.100 0.100
+Ns 12.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl soot
+Ka 0.120 0.100 0.090
+Kd 0.120 0.100 0.090
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl roof_red
+Ka 0.820 0.280 0.220
+Kd 0.820 0.280 0.220
+Ks 0.100 0.100 0.100
+Ns 14.0
+d 1.0
+illum 2
+map_Kd ../textures/roof.ppm

@@ -1,0 +1,32 @@
+# Sítio do Sol - materials for pig
+newmtl pig_pink
+Ka 0.980 0.720 0.720
+Kd 0.980 0.720 0.720
+Ks 0.150 0.150 0.150
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl hoof
+Ka 0.300 0.250 0.220
+Kd 0.300 0.250 0.220
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl pig_snout
+Ka 0.940 0.540 0.580
+Kd 0.940 0.540 0.580
+Ks 0.150 0.150 0.150
+Ns 16.0
+d 1.0
+illum 2
+
+newmtl eye
+Ka 0.080 0.070 0.070
+Kd 0.080 0.070 0.070
+Ks 0.600 0.600 0.600
+Ns 80.0
+d 1.0
+illum 2

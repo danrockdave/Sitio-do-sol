@@ -8,6 +8,7 @@
 
 import { mat4 } from '../../lib/gl-matrix/index.js';
 import { createRandom } from './random.js';
+import { MACHINES } from './data.js';
 
 export const FIELD_CENTER = [0, 4];
 export const FIELD_MAX = 12;
@@ -26,7 +27,25 @@ export const ORCHARD_SPOTS = [
   { x: 2.5, z: -13.2, type: 'orange' },
   { x: 6.5, z: -12.4, type: 'apple' },
   { x: -4.5, z: -16.2, type: 'orange' },
+  { x: -0.6, z: -16.9, type: 'mango' },
+  { x: 4.6, z: -16.6, type: 'mango' },
 ];
+
+/** The lake (center and wavy shoreline radius as a function of the angle). */
+export const POND = { x: -15.5, z: 12.5 };
+export function pondRadius(angle) {
+  return 3 + 0.35 * Math.sin(3 * angle + 0.5) + 0.22 * Math.cos(5 * angle);
+}
+/** True when (x, z) is on the water, at least `margin` units from the shore. */
+export function inPond(x, z, margin = 0) {
+  const dx = x - POND.x;
+  const dz = z - POND.z;
+  const a = Math.atan2(-dz, dx);
+  return Math.hypot(dx, dz) < pondRadius(a) - margin;
+}
+
+/** Open shed (galpão) north of the barn: machines stand under its roof. */
+export const SHED = { x: 15.6, z: 13, width: 11, depth: 3.4 };
 
 export function makeMatrix(x, y, z, yawDeg = 0, scale = 1) {
   const m = mat4.create();
@@ -44,6 +63,9 @@ export class World {
     this.interactables = [];  // { type, x, z, radius, height, label }
     this.windmill = null;
     this.bin = null;
+    this.mailbox = null;
+    this.board = null;
+    this.ipe = null;
     this.rng = createRandom(2026);
     this.keepRng = createRandom(99);   // separate stream: quality culling never changes the layout
     this.splatWidth = SPLAT_SIZE * SPLAT_RES;
@@ -120,6 +142,25 @@ export class World {
       else this.place('tall_grass', x, z, this.rng.range(0, 360), this.rng.range(1.0, 1.5));
     }
 
+    // mailbox by the house, village order board by the road, golden ipê by the lake
+    this.mailbox = { x: -11.7, z: -8.3, yaw: 0 };
+    this.circle(-11.7, -8.3, 0.18);
+    this.interactables.push({ type: 'mailbox', x: -11.7, z: -8.3, radius: 0.6, height: 1.1, label: 'Caixa de correio' });
+    this.board = { x: 2.6, z: -8.6, yaw: 0 };
+    this.box(1.65, -8.7, 3.55, -8.5);
+    this.interactables.push({ type: 'board', x: 2.6, z: -8.0, radius: 1.2, height: 1.4, label: 'Mural da Vila' });
+    this.ipe = { x: -9.7, z: 15.4, yaw: 0.4 };
+    this.circle(this.ipe.x, this.ipe.z, 0.32);
+    this.interactables.push({ type: 'ipe', x: this.ipe.x, z: this.ipe.z, radius: 1.0, height: 1.6, label: 'Ipê-amarelo do avô' });
+
+    // open shed south of the barn: the machines face south and the farmer
+    // walks in from the road along the farm fence (the roof is cut away nearby)
+    for (let i = 0; i < 5; i++) {
+      const x = SHED.x - SHED.width / 2 + 0.2 + (i * (SHED.width - 0.4)) / 4;
+      for (const sz of [-1, 1]) this.circle(x, SHED.z + sz * (SHED.depth / 2 - 0.1), 0.14);
+    }
+    this.box(SHED.x - SHED.width / 2, SHED.z - SHED.depth / 2, SHED.x + SHED.width / 2, SHED.z - SHED.depth / 2 + 0.2);
+
     this.place('well', -4.5, -7.6);
     this.circle(-4.5, -7.6, 0.75);
     this.place('scarecrow', -7.3, 4.2, 15);
@@ -140,7 +181,7 @@ export class World {
 
     // lamps (lantern light position = post + rotated arm offset)
     const lamps = [[-7.6, -8.6, 0], [5.0, -7.9, 180], [9.4, 1.6, 180], [-11.2, 1.2, 0], [10.2, -9.6, 0],
-      [-1.3, -8.0, 90], [1.6, 11.0, 0]];
+      [-1.3, -8.0, 90], [1.6, 11.0, 0], [8.7, 14.9, 0]];
     for (const [x, z, yaw] of lamps) {
       this.place('lamp_post', x, z, yaw);
       this.circle(x, z, 0.15);
@@ -212,6 +253,14 @@ export class World {
     road(-4.5, -6.6, -4.5, -7.6, 0.6);
     road(-11.2, 3, -11.2, 8.6, 0.6);
     road(-11.2, 8.6, -13.0, 10.0, 0.6);
+    road(9.4, 4, 9.4, 15.9, 0.8);
+    road(9.4, 15.9, 21.0, 15.9, 0.8);
+    road(-10.6, -8.3, -9.4, -8.3, 0.45);
+    road(2.6, -6.6, 2.6, -7.8, 0.55);
+    road(-11.2, 8.6, -10.0, 14.3, 0.45);
+    this.paintRect(SHED.x - SHED.width / 2 + 0.1, SHED.z - SHED.depth / 2 + 0.1,
+      SHED.x + SHED.width / 2 - 0.1, SHED.z + SHED.depth / 2 - 0.1, 0.85, 0.5);
+    this.paintCircle(MACHINES.beehive.x, MACHINES.beehive.z, 0.9, 0.5);
     this.paintCircle(-4.5, -7.6, 1.5, 0.9);
     this.paintCircle(19, -15, 2.0, 0.9);
     this.paintCircle(12, -11, 2.2, 0.9);
@@ -222,12 +271,14 @@ export class World {
     }
     // the area in front of the barn door is bare earth
     this.paintCircle(16, -1.2, 2.4, 1.0);
+    this.baseSplat = this.splat.slice();   // everything except the field area
     this.paintFieldArea(this.fieldSize);
   }
 
   /** Marks the unlocked planting area with lightly worked soil. */
   paintFieldArea(size) {
     this.fieldSize = size;
+    if (this.baseSplat) this.splat.set(this.baseSplat);   // a smaller field must not keep the old patch
     const half = size / 2;
     this.paintRect(FIELD_CENTER[0] - half - 0.25, FIELD_CENTER[1] - half - 0.25,
       FIELD_CENTER[0] + half + 0.25, FIELD_CENTER[1] + half + 0.25, 0.55, 0.35);
@@ -249,8 +300,8 @@ export class World {
       this.place(rng.pick(kinds), x, z, rng.range(0, 360), rng.range(0.85, 1.3)).decor = 'forest';
     }
     // a few trees inside the farm
-    const inside = [[-21.5, -17.5], [-18.5, -18], [21.5, 15.5], [-21.5, 15.5], [-19, 16.2], [22, -18],
-      [6, 15.5], [-6.5, 15.8], [-22, -9], [22.2, 12.5], [-14.5, -16.5], [9, -17.5]];
+    const inside = [[-21.5, -17.5], [-18.5, -18], [22.4, 16.6], [-21.5, 15.5], [-19, 16.2], [22, -18],
+      [6, 15.5], [-6.5, 15.8], [-22, -9], [23.0, 10.6], [-14.5, -16.5], [9, -17.5]];
     for (const [x, z] of inside) {
       this.place(rng.pick(['tree_round', 'tree_round_b', 'tree_autumn']), x, z, rng.range(0, 360), rng.range(0.9, 1.15));
       this.circle(x, z, 0.45);
@@ -260,6 +311,9 @@ export class World {
   isBlockedForDecor(x, z) {
     if (x > -6.8 && x < 6.8 && z > -2.8 && z < 10.8) return true;                 // field
     if (Math.abs(z + 6.6) < 1.8) return true;                                       // main road
+    if (Math.abs(x - SHED.x) < SHED.width / 2 + 0.8 && Math.abs(z - SHED.z) < SHED.depth / 2 + 1.2) return true;
+    if (Math.hypot(x - MACHINES.beehive.x, z - MACHINES.beehive.z) < 1.3) return true;
+    if (this.ipe && Math.hypot(x - this.ipe.x, z - this.ipe.z) < 1.6) return true;
     for (const pen of Object.values(PENS)) {
       if (x > pen.minX - 0.6 && x < pen.maxX + 0.6 && z > pen.minZ - 0.6 && z < pen.maxZ + 0.6) return true;
     }

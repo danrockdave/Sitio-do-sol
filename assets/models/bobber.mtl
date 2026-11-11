@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for bobber
+newmtl bobber_red
+Ka 0.930 0.180 0.150
+Kd 0.930 0.180 0.150
+Ks 0.600 0.600 0.600
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl trim_white
+Ka 0.980 0.970 0.950
+Kd 0.980 0.970 0.950
+Ks 0.100 0.100 0.100
+Ns 16.0
+d 1.0
+illum 2

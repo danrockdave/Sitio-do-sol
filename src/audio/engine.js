@@ -198,9 +198,45 @@ export class AudioEngine {
     }, 4000);
   }
 
-  /** Ambience: birds during the day, crickets at night. Call once per frame. */
-  update(dt, night) {
-    if (!this.ready || !this.settings.sfx) return;
+  /** Continuous rain hiss: looping filtered noise whose volume follows the rain. */
+  _rainLoop() {
+    if (this.rainGain) return;
+    const ctx = this.ctx;
+    const source = ctx.createBufferSource();
+    source.buffer = this.noiseBuffer;
+    source.loop = true;
+    const highpass = ctx.createBiquadFilter();
+    highpass.type = 'highpass';
+    highpass.frequency.value = 700;
+    const lowpass = ctx.createBiquadFilter();
+    lowpass.type = 'lowpass';
+    lowpass.frequency.value = 5200;
+    this.rainGain = ctx.createGain();
+    this.rainGain.gain.value = 0;
+    source.connect(highpass);
+    highpass.connect(lowpass);
+    lowpass.connect(this.rainGain);
+    this.rainGain.connect(this.ambienceBus);
+    source.start();
+  }
+
+  /** Ambience: birds during the day, crickets at night, the rain. Call once per frame. */
+  update(dt, night, rain = 0) {
+    if (!this.ready) return;
+    if (rain > 0.01 || this.rainGain) {
+      this._rainLoop();
+      const level = this.settings.sfx ? rain * 0.32 : 0;
+      this.rainGain.gain.setTargetAtTime(level, this.ctx.currentTime, 0.6);
+      if (rain > 0.3 && this.settings.sfx) {
+        this.dripTimer = (this.dripTimer ?? 0) - dt;
+        if (this.dripTimer <= 0) {
+          this.dripTimer = 0.08 + Math.random() * 0.25;
+          this._ambient('drip', 0.4 + Math.random() * 0.5 * rain);
+        }
+      }
+    }
+    if (!this.settings.sfx) return;
+    if (rain > 0.5) return;   // birds and crickets hide from the rain
     if (night) {
       this.cricketTimer -= dt;
       if (this.cricketTimer <= 0) {

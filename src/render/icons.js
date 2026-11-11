@@ -9,7 +9,7 @@ import { IconTarget } from '../gl/framebuffer.js';
 import { RenderQueue } from './queue.js';
 
 const CELL = 128;
-const ATLAS = 1024;
+const ATLAS_WIDTH = 2048;
 const DEG = Math.PI / 180;
 
 const ICON_ENV = {
@@ -29,7 +29,11 @@ export class IconAtlas {
     this.renderer = renderer;
     this.assets = assets;
     this.defs = defs;
-    this.target = new IconTarget(gl, ATLAS);
+    const perRow = ATLAS_WIDTH / CELL;
+    const rows = Math.ceil(Object.keys(defs).length / perRow);
+    let height = CELL;
+    while (height < rows * CELL) height *= 2;
+    this.target = new IconTarget(gl, ATLAS_WIDTH, height, CELL);
     this.texture = this.target.texture;
     this.uvs = {};
   }
@@ -37,42 +41,41 @@ export class IconAtlas {
   build() {
     const gl = this.gl;
     const r = this.renderer;
+    const target = this.target;
     const queue = new RenderQueue();
     const empty = new RenderQueue();
     const debugView = r.settings.debugView;
     r.settings.debugView = 0;
 
-    this.target.bind();
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST);
     gl.depthMask(true);
     gl.enable(gl.CULL_FACE);
     gl.disable(gl.BLEND);
 
-    const perRow = ATLAS / CELL;
+    const perRow = target.width / CELL;
     let index = 0;
     for (const [id, parts] of Object.entries(this.defs)) {
-      const col = index % perRow;
-      const row = Math.floor(index / perRow);
-      index++;
       queue.clear();
       const sphere = this._submit(queue, parts);
       if (!sphere) continue;
+      const col = index % perRow;
+      const row = Math.floor(index / perRow);
+      index++;
 
       const camera = this._camera(sphere);
       r._packInstances([queue, empty]);
-      this.target.bind();
-      gl.viewport(col * CELL, row * CELL, CELL, CELL);
+      target.beginCell();
       const p = r.setupPhong({ camera, env: ICON_ENV, time: 0, pointLights: [], ground: null }, false);
       r.drawBatches(queue, p);
+      target.resolveCell(col, row);
 
       // texture rows grow upward in GL, so the cell's top edge is (row + 1)
-      const inset = 0.5 / ATLAS;
-      this.uvs[id] = [col * CELL / ATLAS + inset, (row + 1) * CELL / ATLAS - inset,
-        (col + 1) * CELL / ATLAS - inset, row * CELL / ATLAS + inset];
+      const iu = 0.5 / target.width;
+      const iv = 0.5 / target.height;
+      this.uvs[id] = [col * CELL / target.width + iu, (row + 1) * CELL / target.height - iv,
+        (col + 1) * CELL / target.width - iu, row * CELL / target.height + iv];
     }
-    this.target.resolve();
+    target.finish();
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     r.settings.debugView = debugView;
   }

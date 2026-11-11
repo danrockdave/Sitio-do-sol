@@ -1,0 +1,42 @@
+# Sítio do Sol - materials for loom
+newmtl wood_dark
+Ka 0.550 0.380 0.240
+Kd 0.550 0.380 0.240
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl wood
+Ka 0.800 0.620 0.420
+Kd 0.800 0.620 0.420
+Ks 0.050 0.050 0.050
+Ns 10.0
+d 1.0
+illum 2
+map_Kd ../textures/wood.ppm
+
+newmtl wool
+Ka 0.980 0.970 0.940
+Kd 0.980 0.970 0.940
+Ks 0.020 0.020 0.020
+Ns 4.0
+d 1.0
+illum 2
+
+newmtl fabric_blue
+Ka 0.380 0.560 0.860
+Kd 0.380 0.560 0.860
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2
+
+newmtl fabric_red
+Ka 0.860 0.320 0.300
+Kd 0.860 0.320 0.300
+Ks 0.050 0.050 0.050
+Ns 8.0
+d 1.0
+illum 2

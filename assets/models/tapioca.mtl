@@ -1,0 +1,16 @@
+# Sítio do Sol - materials for tapioca
+newmtl tapioca
+Ka 0.990 0.980 0.940
+Kd 0.990 0.980 0.940
+Ks 0.080 0.080 0.080
+Ns 10.0
+d 1.0
+illum 2
+
+newmtl cheese
+Ka 0.990 0.860 0.420
+Kd 0.990 0.860 0.420
+Ks 0.250 0.250 0.250
+Ns 24.0
+d 1.0
+illum 2
