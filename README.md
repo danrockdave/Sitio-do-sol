@@ -17,6 +17,8 @@ Trabalho da 2ª avaliação parcial de Computação Gráfica (Jogo 3D).
 - **Vídeo de demonstração:** _(Ainda vou criar)_
 - **Slides da apresentação:** _(https://docs.google.com/presentation/d/18dv4SRbfkmuPzgNmXxR6dT9H4ioQd00oji-wROKAi7w/edit?usp=sharing)_
 
+- **Download apk mobile** _(https://github.com/danrockdave/Sitio-do-sol/releases/tag/1.1.0)_
+
 ## Como jogar
 
 O dia no jogo dura 4 minutos reais (1 hora = 10 segundos).
